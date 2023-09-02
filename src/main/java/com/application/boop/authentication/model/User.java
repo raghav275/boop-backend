@@ -6,19 +6,29 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="User")
+@Table(name="UserProfile",uniqueConstraints = @UniqueConstraint(columnNames = {"id","email"}))
 public class User {
+    @Column(name="name")
     private String name;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name="age")
     private int age;
 
+    @Column(name = "parent_name")
     private String parentName;
 
+    @Column(name="images", columnDefinition = "bytea[]")
     private List<Byte[]> images;
 
+    @Column(name="traits", columnDefinition = "text[]")
     private List<String> traits;
+
+    @Column(name="email")
+    private String email;
 
     public String getName() {
         return name;
@@ -66,5 +76,13 @@ public class User {
 
     public void setTraits(List<String> traits) {
         this.traits = traits;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
